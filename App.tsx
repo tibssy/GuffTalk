@@ -1,20 +1,21 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import "react-native-get-random-values";
+import "./global.css";
+import React from "react";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import ChatScreen from "./src/screens/ChatScreen";
+import { ThemeProvider } from "./src/context/ThemeContext";
+import { LogBox } from "react-native";
+
+LogBox.ignoreLogs([
+    "SafeAreaView has been deprecated. Please use 'react-native-safe-area-context' instead.",
+]);
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    return (
+        <SafeAreaProvider>
+            <ThemeProvider>
+                <ChatScreen />
+            </ThemeProvider>
+        </SafeAreaProvider>
+    );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
