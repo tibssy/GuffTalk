@@ -2,7 +2,7 @@ import "react-native-get-random-values";
 import "./global.css";
 import React from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import ChatScreen from "./src/screens/ChatScreen";
+import MainScreen from "./src/screens/MainScreen";
 import { ThemeProvider } from "./src/context/ThemeContext";
 import { LogBox } from "react-native";
 
@@ -14,7 +14,7 @@ export default function App() {
     return (
         <SafeAreaProvider>
             <ThemeProvider>
-                <ChatScreen />
+                <MainScreen />
             </ThemeProvider>
         </SafeAreaProvider>
     );

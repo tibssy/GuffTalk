@@ -21,10 +21,24 @@
                 "backgroundColor": "#ffffff"
             },
             "edgeToEdgeEnabled": true,
-            "predictiveBackGestureEnabled": false
+            "predictiveBackGestureEnabled": false,
+            "package": "com.tibssy.GuffTalk"
         },
         "web": {
             "favicon": "./assets/favicon.png"
-        }
+        },
+        "extra": {
+            "eas": {
+                "projectId": "9320412b-982a-44d8-8ff2-1a225dada92d"
+            }
+        },
+        "plugins": [
+            [
+                "expo-navigation-bar",
+                {
+                    "backgroundColor": "#00000000"
+                }
+            ]
+        ]
     }
 }
