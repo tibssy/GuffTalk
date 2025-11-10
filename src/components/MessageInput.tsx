@@ -32,7 +32,6 @@ const MessageInput: React.FC<MessageInputProps> = ({ onSendMessage }) => {
             alignItems: "center",
             padding: 10,
             backgroundColor: colors.background,
-            borderTopColor: colors.inputBorder,
         },
         inputContainer: {
             flex: 1,

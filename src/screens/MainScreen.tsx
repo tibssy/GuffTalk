@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import * as NavigationBar from "expo-navigation-bar";
 import {
     StyleSheet,
     View,
@@ -70,6 +71,11 @@ const MainScreen = () => {
     const saveIconStyle = useIconAnimation("settings", activeView);
 
     useEffect(() => {
+        // NavigationBar.setPositionAsync("relative");
+        NavigationBar.setBackgroundColorAsync(colors.background);
+    }, [isDark]);
+
+    useEffect(() => {
         let targetPosition = -width;
         if (activeView === "history") targetPosition = 0;
         if (activeView === "settings") targetPosition = -width * 2;
@@ -111,7 +117,7 @@ const MainScreen = () => {
     return (
         <AnimatedSafeAreaView
             style={[{ flex: 1 }, animatedRootBgStyles]}
-            edges={["left", "right", "bottom"]}
+            edges={["left", "right", "top"]}
         >
             <StatusBar
                 barStyle={isDark ? "light-content" : "dark-content"}
@@ -120,10 +126,14 @@ const MainScreen = () => {
             />
             <KeyboardAvoidingView
                 style={{ flex: 1 }}
-                behavior={Platform.OS === "ios" ? "padding" : "height"}
-                enabled={activeView === "chat"}
+                behavior={Platform.OS === "ios" ? "padding" : undefined}
             >
-                <View style={[styles.container, { paddingTop: insets.top }]}>
+                <View
+                    style={[
+                        styles.container,
+                        // { paddingTop: insets.top }
+                    ]}
+                >
                     {/* --- DYNAMIC HEADER --- */}
                     <View style={styles.header}>
                         {/* --- Left Icon Slot --- */}

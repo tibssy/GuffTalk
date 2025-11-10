@@ -20,8 +20,9 @@
                 "foregroundImage": "./assets/adaptive-icon.png",
                 "backgroundColor": "#ffffff"
             },
-            "edgeToEdgeEnabled": true,
+            "edgeToEdgeEnabled": false,
             "predictiveBackGestureEnabled": false,
+            // "softwareKeyboardLayoutMode": "pan",
             "package": "com.tibssy.GuffTalk"
         },
         "web": {
@@ -31,14 +32,6 @@
             "eas": {
                 "projectId": "9320412b-982a-44d8-8ff2-1a225dada92d"
             }
-        },
-        "plugins": [
-            [
-                "expo-navigation-bar",
-                {
-                    "backgroundColor": "#00000000"
-                }
-            ]
-        ]
+        }
     }
 }
