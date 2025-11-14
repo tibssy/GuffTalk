@@ -4,6 +4,7 @@ import React from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import MainScreen from "./src/screens/MainScreen";
 import { ThemeProvider } from "./src/context/ThemeContext";
+import { LlamaProvider } from "./src/context/LlamaContext";
 import { LogBox } from "react-native";
 
 LogBox.ignoreLogs([
@@ -14,7 +15,9 @@ export default function App() {
     return (
         <SafeAreaProvider>
             <ThemeProvider>
-                <MainScreen />
+                <LlamaProvider>
+                    <MainScreen />
+                </LlamaProvider>
             </ThemeProvider>
         </SafeAreaProvider>
     );

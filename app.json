@@ -13,7 +13,8 @@
             "backgroundColor": "#ffffff"
         },
         "ios": {
-            "supportsTablet": true
+            "supportsTablet": true,
+            "bundleIdentifier": "com.tibssy.GuffTalk"
         },
         "android": {
             "adaptiveIcon": {
@@ -22,7 +23,6 @@
             },
             "edgeToEdgeEnabled": false,
             "predictiveBackGestureEnabled": false,
-            // "softwareKeyboardLayoutMode": "pan",
             "package": "com.tibssy.GuffTalk"
         },
         "web": {
@@ -32,6 +32,19 @@
             "eas": {
                 "projectId": "9320412b-982a-44d8-8ff2-1a225dada92d"
             }
-        }
+        },
+        "plugins": [
+            [
+                "llama.rn",
+                {
+                    "enableEntitlements": true,
+                    "entitlementsProfile": "production",
+                    "forceCxx20": true,
+                    "enableOpenCL": true
+                }
+            ],
+            "expo-build-properties",
+            "expo-font"
+        ]
     }
 }

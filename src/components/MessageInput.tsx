@@ -11,12 +11,16 @@ import { useTheme } from "../context/ThemeContext";
 
 interface MessageInputProps {
     onSendMessage: (text: string) => void;
+    isSending: boolean;
 }
 
-const MessageInput: React.FC<MessageInputProps> = ({ onSendMessage }) => {
+const MessageInput: React.FC<MessageInputProps> = ({
+    onSendMessage,
+    isSending,
+}) => {
     const [text, setText] = useState("");
     const { colors } = useTheme();
-    const isSendDisabled = text.trim().length === 0;
+    const isSendDisabled = text.trim().length === 0 || isSending;
 
     const handleSend = () => {
         if (!isSendDisabled) {

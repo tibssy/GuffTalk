@@ -11,12 +11,15 @@ const AnimatedFlatList = Animated.createAnimatedComponent(FlatList<Message>);
 interface ChatViewProps {
     messages: Message[];
     handleSendMessage: (text: string) => void;
+    isGenerating: boolean;
 }
 
-const ChatView: React.FC<ChatViewProps> = ({ messages, handleSendMessage }) => {
+const ChatView: React.FC<ChatViewProps> = ({
+    messages,
+    handleSendMessage,
+    isGenerating,
+}) => {
     const { colors } = useTheme();
-    const flatListRef = useRef<FlatList>(null);
-
     const animatedChatBgStyles = useAnimatedStyle(() => ({
         backgroundColor: colors.inputBackground,
     }));
@@ -38,8 +41,8 @@ const ChatView: React.FC<ChatViewProps> = ({ messages, handleSendMessage }) => {
     return (
         <View style={styles.container}>
             <AnimatedFlatList
-                ref={flatListRef}
-                data={messages}
+                inverted={true}
+                data={[...messages].reverse()}
                 renderItem={({ item }) => <ChatBubble message={item} />}
                 keyExtractor={(item) => item.id}
                 style={[
@@ -48,14 +51,11 @@ const ChatView: React.FC<ChatViewProps> = ({ messages, handleSendMessage }) => {
                     { borderColor: colors.inputBorder },
                 ]}
                 contentContainerStyle={{ paddingVertical: 10 }}
-                onContentSizeChange={() =>
-                    flatListRef.current?.scrollToEnd({ animated: true })
-                }
-                onLayout={() =>
-                    flatListRef.current?.scrollToEnd({ animated: true })
-                }
             />
-            <MessageInput onSendMessage={handleSendMessage} />
+            <MessageInput
+                onSendMessage={handleSendMessage}
+                isSending={isGenerating}
+            />
         </View>
     );
 };

@@ -20,6 +20,7 @@ import Animated, {
     useAnimatedStyle,
     withTiming,
 } from "react-native-reanimated";
+import { useLlama } from "../context/LlamaContext";
 import { v4 as uuidv4 } from "uuid";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
@@ -53,7 +54,7 @@ const MainScreen = () => {
     const [messages, setMessages] = useState<Message[]>([
         {
             id: uuidv4(),
-            text: "Hello! Keyboard and navigation are now fixed. Check settings for the theme switch.",
+            text: "Hello!",
             role: "bot",
             timestamp: new Date(),
         },
@@ -69,6 +70,7 @@ const MainScreen = () => {
     const settingsIconStyle = useIconAnimation("chat", activeView);
     const historyBackIconStyle = useIconAnimation("history", activeView);
     const saveIconStyle = useIconAnimation("settings", activeView);
+    const { generateResponse, isGenerating, status: llamaStatus } = useLlama();
 
     useEffect(() => {
         // NavigationBar.setPositionAsync("relative");
@@ -89,23 +91,30 @@ const MainScreen = () => {
         backgroundColor: colors.background,
     }));
 
-    const handleSendMessage = (text: string) => {
+    const handleSendMessage = async (text: string) => {
+        if (llamaStatus !== "loaded" || isGenerating) {
+            Alert.alert(
+                "AI Not Ready",
+                "Please wait for the AI to finish loading or generating a response."
+            );
+            return;
+        }
+
         const userMessage: Message = {
             id: uuidv4(),
             text,
             role: "user",
             timestamp: new Date(),
         };
-        setMessages((prev) => [...prev, userMessage]);
-        setTimeout(() => {
-            const botResponse: Message = {
-                id: uuidv4(),
-                text: `You said: "${text}". I am a simulated response.`,
-                role: "bot",
-                timestamp: new Date(),
-            };
-            setMessages((prev) => [...prev, botResponse]);
-        }, 1000);
+
+        const newMessages: Message[] = [
+            ...messages,
+            userMessage,
+            { id: uuidv4(), text: "", role: "bot", timestamp: new Date() },
+        ];
+
+        setMessages(newMessages);
+        await generateResponse(newMessages.slice(0, -1), setMessages);
     };
 
     const goBackToChat = () => setActiveView("chat");
@@ -247,6 +256,7 @@ const MainScreen = () => {
                             <ChatView
                                 messages={messages}
                                 handleSendMessage={handleSendMessage}
+                                isGenerating={isGenerating}
                             />
                         </View>
                         <View style={{ width }}>
